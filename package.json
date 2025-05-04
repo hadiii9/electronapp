@@ -4,10 +4,28 @@
   "description": "This is a dummy app",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "dev:watch": "npx electronmon --trace-warnings ."
+    "dev:watch": "npx electronmon --trace-warnings .",
+    "react:build": "cd app && npm install && npm run build",
+    "pack": "npm run react:build && electron-builder --dir",
+    "dist": "npm run react:build && electron-builder"
   },
+  "build": {
+    "appId": "com.hadi.electronapp",
+    "files": [
+      "main.js",
+      "preload.js",
+      "app/build/**/*"
+    ],
+    "directories": {
+      "app": ".",
+      "buildResources": "assets"
+    },
+    "win": {
+      "target": "nsis"
+    }
+  },
+
   "keywords": [
     "electron",
     "reactjs",
@@ -15,7 +33,9 @@
   ],
   "author": "hadi",
   "license": "MIT",
-  "dependencies": {
-    "electron": "^36.1.0"
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^36.1.0",
+    "electron-builder": "^24.0.0"
   }
 }
